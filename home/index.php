@@ -4,6 +4,11 @@ session_start();
 if (!isset($_SESSION['correo_usr'])) {
     header("Location: /taskassigner/");
 }
+
+require_once '../database/connection.php';
+
+$projects = get_projects($_SESSION['correo_usr']);
+$num_projects = count($projects['nombre']);
 ?>
 
 <!DOCTYPE html>
@@ -14,20 +19,19 @@ if (!isset($_SESSION['correo_usr'])) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     </head>
     <body>
-        <nav class="navbar navbar-light bg-primary fixed-top">
-            <div class="container-fluid">
-                <a href="/taskassigner/" class="navbar-brand text-white">Task Assigner</a>
-                <?php
-                if (isset($_SESSION['correo_usr'])) {
-                    echo '
-                    <a href="../logout.php" class="navbar-text navbar-brand text-white">Cerrar sesión</a>
-                    ';
-                }
-                ?>
-            </div>
-        </nav>
+        <?php
+        require_once '../includes/navbar.php';
+
+        if(!( $num_projects > 0 )) {
+            // En caso de que no haya proyectos
+            require_once 'no-projects.php';
+        } else {
+            // En caso de que sí haya proyectos
+            require_once 'grid-cards.php';
+        }
+        ?>
     </body>
     <?php
-    require_once '../includes/footer.html';
+    require_once '../includes/footer.php';
     ?>
 </html>
