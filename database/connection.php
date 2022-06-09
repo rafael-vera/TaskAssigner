@@ -44,13 +44,17 @@
         return $val;
     }
 
-    function create_projects($nom_proyecto, $desc_proyecto){
+    function create_project($email, $nom_proyecto, $desc_proyecto=''){
         $val = false;
         $conn = connection();
-        $sql = "INSERT INTO proyecto (nom_proyecto, desc_proyecto) VALUES ('$nom_proyecto', '$desc_proyecto')";
+        $sql = "INSERT INTO proyecto VALUES (NULL, '$nom_proyecto', '$desc_proyecto')";
         try {
             if($conn->query($sql)) {
-                $val = true;
+                $new_id = $conn->insert_id;
+                $sql = "INSERT INTO usuarioproyecto VALUES ('$email', 1, $new_id)";
+                if($conn->query($sql)) {
+                    $val = true;
+                }
             }
         } catch(Exception $e) {
         }

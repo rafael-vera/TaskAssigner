@@ -8,7 +8,17 @@ if (!isset($_SESSION['correo_usr'])) {
 require_once '../database/connection.php';
 
 if (isset($_POST['submit'])) {
-    $val = create_projects($_POST['nom_proyecto'], $_POST['desc_proyecto']);
+    $val = create_project(
+        $_SESSION['correo_usr'],
+        $_POST['nom_proyecto'],
+        $_POST['desc_proyecto']
+    );
+
+    if ($val) {
+        header("Location: index.php");
+    } else {
+        echo "<script>alert('Error al realizar el registro')</script>";
+    }
 }
 ?>
 
