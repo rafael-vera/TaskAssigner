@@ -46,21 +46,37 @@
 
     function get_projects($email) {
         $projects = array(
+            'id'=>array(),
             'nombre'=>array(),
             'descripcion'=>array()
         );
         $conn = connection();
         $result = $conn->query(
-            "SELECT proyecto.nom_proyecto, proyecto.desc_proyecto FROM proyecto, usuarioproyecto
+            "SELECT proyecto.id_proyecto, proyecto.nom_proyecto, proyecto.desc_proyecto FROM proyecto, usuarioproyecto
              WHERE proyecto.id_proyecto = usuarioproyecto.id_proyecto AND usuarioproyecto.correo_usr = '$email'"
         );
         if($result->num_rows > 0) {
             while($project = $result->fetch_row()) {
-                array_push($projects['nombre'], $project[0]);
-                array_push($projects['descripcion'], $project[1]);
+                array_push($projects['id'], $project[0]);
+                array_push($projects['nombre'], $project[1]);
+                array_push($projects['descripcion'], $project[2]);
             }
         }
         close_connection($conn);
         return $projects;
+    }
+
+    function get_puesto($email, $id) {
+        $val = null;
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT nom_puesto FROM puesto, usuarioproyecto
+             WHERE usuarioproyecto.correo_usr='$email' AND usuarioproyecto.id_proyecto=$id AND puesto.id_puesto=usuarioproyecto.id_puesto"
+        );
+        if($result->num_rows > 0) {
+            $val = $result->fetch_row()[0];
+        }
+        close_connection($conn);
+        return $val;
     }
 ?>
