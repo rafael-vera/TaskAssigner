@@ -43,4 +43,24 @@
         close_connection($conn);
         return $val;
     }
+
+    function get_projects($email) {
+        $projects = array(
+            'nombre'=>array(),
+            'descripcion'=>array()
+        );
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT proyecto.nom_proyecto, proyecto.desc_proyecto FROM proyecto, usuarioproyecto
+             WHERE proyecto.id_proyecto = usuarioproyecto.id_proyecto AND usuarioproyecto.correo_usr = '$email'"
+        );
+        if($result->num_rows > 0) {
+            while($project = $result->fetch_row()) {
+                array_push($projects['nombre'], $project[0]);
+                array_push($projects['descripcion'], $project[1]);
+            }
+        }
+        close_connection($conn);
+        return $projects;
+    }
 ?>
