@@ -5,6 +5,10 @@ if (!isset($_SESSION['correo_usr'])) {
     header("Location: /taskassigner/");
 }
 
+require_once '../database/connection.php';
+
+if (isset($_POST['submit'])) {
+    $val = create_projects($_POST['nom_proyecto'], $_POST['desc_proyecto']);
 ?>
 
 <!DOCTYPE html>

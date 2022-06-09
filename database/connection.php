@@ -44,6 +44,20 @@
         return $val;
     }
 
+    function create_projects($nom_proyecto, $desc_proyecto){
+        $val = false;
+        $conn = connection();
+        $sql = "INSERT INTO proyecto (nom_proyecto, desc_proyecto) VALUES ('$nom_proyecto', '$desc_proyecto')";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
     function get_projects($email) {
         $projects = array(
             'id'=>array(),
