@@ -9,10 +9,11 @@ require_once '../database/connection.php';
 
 if (isset($_POST['submit'])) {
     $val = create_projects($_POST['nom_proyecto'], $_POST['desc_proyecto']);
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"> 
     <head>
         <meta charset="UTF-8">
         <title>Task Assigner</title>
