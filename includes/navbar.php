@@ -4,7 +4,7 @@
         <?php
         if (isset($_SESSION['correo_usr'])) {
             echo '
-            <a href="../logout.php" class="navbar-text navbar-brand text-white">Cerrar sesión</a>
+            <a href="/taskassigner/logout.php" class="navbar-text navbar-brand text-white">Cerrar sesión</a>
             ';
         }
         ?>
