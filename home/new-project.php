@@ -2,13 +2,18 @@
 session_start();
 
 if (!isset($_SESSION['correo_usr'])) {
-    header("Location: /taskassigner/");
+    header("Location: ../home/index.php");
 }
 
 require_once '../database/connection.php';
 
 if (isset($_POST['submit'])) {
     $val = create_projects($_POST['nom_proyecto'], $_POST['desc_proyecto']);
+    if ($val) {
+        header("Location: ../home/index.php");
+    } else {
+        echo "<script>alert('Error al realizar el registro')</script>";
+    }
 }
 ?>
 
