@@ -19,7 +19,7 @@
                         <h5 class="card-title">'.$projects['nombre'][$i].'</h5>
                         <p class="card-text">'.$projects['descripcion'][$i].'</p>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="#" class="btn btn-info">Ir al proyecto</a>
+                            <a href="proyecto/?id='.$projects['id'][$i].'" class="btn btn-info">Ir al proyecto</a>
                         </div>
                     </div>
                 </div>
