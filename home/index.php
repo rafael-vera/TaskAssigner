@@ -8,7 +8,7 @@ if (!isset($_SESSION['correo_usr'])) {
 require_once '../database/connection.php';
 
 $projects = get_projects($_SESSION['correo_usr']);
-$num_projects = count($projects['nombre']);
+$num_projects = count($projects['id']);
 ?>
 
 <!DOCTYPE html>
