@@ -97,4 +97,28 @@
         close_connection($conn);
         return $val;
     }
+
+    function get_integrantes($id_proyecto) {
+        $integrantes = array(
+            'correo'=>array(),
+            'nombre'=>array(),
+            'apellidos'=>array(),
+            'puesto'=>array()
+        );
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT usuario.correo_usr, usuario.nombre_usr, usuario.apellidos_usr, puesto.nom_puesto FROM usuarioproyecto, usuario, puesto
+             WHERE usuarioproyecto.id_proyecto=$id_proyecto AND usuarioproyecto.id_puesto=puesto.id_puesto AND usuarioproyecto.correo_usr=usuario.correo_usr"
+        );
+        if($result->num_rows > 0) {
+            while($integrante = $result->fetch_row()) {
+                array_push($integrantes['correo'], $integrante[0]);
+                array_push($integrantes['nombre'], $integrante[1]);
+                array_push($integrantes['apellidos'], $integrante[2]);
+                array_push($integrantes['puesto'], $integrante[3]);
+            }
+        }
+        close_connection($conn);
+        return $integrantes;
+    }
 ?>
