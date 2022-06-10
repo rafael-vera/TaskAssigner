@@ -35,15 +35,15 @@ require_once '../../database/connection.php';
         switch ($puesto) {
             case "Administrador":
                 // Vista administrador
-                require_once 'administrador.php';
+                require_once 'administrator.php';
                 break;
             case "Sub Administrador":
                 // Vista sub-administrador
-                require_once 'sub-administrador.php';
+                require_once 'sub-administrator.php';
                 break;
             case "Empleado":
                 // Vista empleado
-                require_once 'empleado.php';
+                require_once 'employee.php';
                 break;
         }
         ?>

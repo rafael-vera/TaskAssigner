@@ -1,0 +1,1 @@
+<!-- Vista con la información de un integrante, se ve su información no modificable y sus tareas asignadas -->
