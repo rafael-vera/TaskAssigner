@@ -35,10 +35,12 @@ require_once '../../database/connection.php';
         switch ($puesto) {
             case "Administrador":
                 // Vista administrador
+                echo '<a href="members/?id='.$_GET['id'].'">Ver miembros</a>';
                 require_once 'administrator.php';
                 break;
             case "Sub Administrador":
                 // Vista sub-administrador
+                echo '<a href="members/?id='.$_GET['id'].'">Ver miembros</a>';
                 require_once 'sub-administrator.php';
                 break;
             case "Empleado":
