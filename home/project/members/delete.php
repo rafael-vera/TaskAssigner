@@ -1,0 +1,1 @@
+<!-- Script que elimina un integrante de un proyecto -->
