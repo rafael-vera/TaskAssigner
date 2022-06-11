@@ -76,7 +76,7 @@ if(strcmp($puesto, "Empleado") == 0) {
                             <td>'.$integrantes['puesto'][$i].'</td>
                             <td>
                             <div class="d-flex justify-content-evenly">
-                            <a href="member.php"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>
+                            <a href="member.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>
                             <a href="#"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
                             </div>
                             </td>
