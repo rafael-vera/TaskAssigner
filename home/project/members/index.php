@@ -33,6 +33,7 @@ if(strcmp($puesto, "Empleado") == 0) {
         <title>Task Assigner</title>
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jq-3.6.0/dt-1.12.1/datatables.min.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <?php
@@ -58,6 +59,7 @@ if(strcmp($puesto, "Empleado") == 0) {
                         <th class="text-center">Nombre</th>
                         <th class="text-center">Apellidos</th>
                         <th class="text-center">Puesto</th>
+                        <th class="text-center">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -68,10 +70,16 @@ if(strcmp($puesto, "Empleado") == 0) {
                 while($i < $j) {
                     echo '
                         <tr>
-                            <td>'.$integrantes['correo'][$i].'</td>
+                            <td><i class="fa fa-user text-primary" aria-hidden="true"></i>&nbsp;&nbsp;'.$integrantes['correo'][$i].'</td>
                             <td>'.$integrantes['nombre'][$i].'</td>
                             <td>'.$integrantes['apellidos'][$i].'</td>
                             <td>'.$integrantes['puesto'][$i].'</td>
+                            <td>
+                            <div class="d-flex justify-content-evenly">
+                            <a href="member.php"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
+                            </div>
+                            </td>
                         </tr>
                     ';
                     $i++;
