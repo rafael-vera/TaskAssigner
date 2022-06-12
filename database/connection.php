@@ -122,6 +122,34 @@
         return $tareas;
     }
 
+    function task_done($email, $id, $task) {
+        $val = false;
+        $conn = connection();
+        $sql = "UPDATE tarea SET terminado=1 WHERE nom_tarea='$task' AND correo_usr='$email' AND id_proyecto=$id";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
+    function task_undone($email, $id, $task) {
+        $val = false;
+        $conn = connection();
+        $sql = "UPDATE tarea SET terminado=0 WHERE nom_tarea='$task' AND correo_usr='$email' AND id_proyecto=$id";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
     function get_integrantes($id_proyecto) {
         $integrantes = array(
             'correo'=>array(),
