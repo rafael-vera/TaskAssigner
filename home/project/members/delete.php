@@ -35,7 +35,7 @@ $eliminar = delete_integrante(
     $_GET['id']
 );
 
-if($eliminar) {
+if(!$eliminar) {
     echo "<script>alert('Error al eliminar al integrante')</script>";
 }
 header("Location: index.php?id=".$_GET['id']);
