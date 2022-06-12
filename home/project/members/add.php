@@ -1,4 +1,48 @@
 <!-- Vista del formulario para agregar un integrante al proyecto -->
+<?php
+session_start();
+
+// Se verifica que se haya iniciado sesión
+if (!isset($_SESSION['correo_usr'])) {
+    header("Location: ../../../");
+}
+
+// Se verifica que se haya mandado el id del proyecto
+if(!isset($_GET['id'])) {
+    header("Location: ../../");
+}
+
+require_once '../../../database/connection.php';
+
+    $puesto = get_puesto(
+        $_SESSION['correo_usr'],
+        $_GET['id']
+    );
+    // Si el usuario no pertenece al proyecto lo regresa a home
+    if($puesto == null) {
+        header("Location: ../../");
+    }
+    // Si el usuario no es administrador o sub administrador del proyecto lo regresa a project
+    if(strcmp($puesto, "Empleado") == 0) {
+        header("Location: ../?id=".$_GET['id']);
+    }
+
+    if (isset($_POST['submit'])) {
+        if($_POST['puesto']!=1){
+            $val = add_integrante(
+                $_POST['correo_usr'], 
+                $_POST['puesto'], 
+                $_GET['id']);
+            if($val==true){
+                header("Location: index.php?id=".$_GET['id']);
+            } else{
+                echo "<script>alert('Error al realizar el registro')</script>";
+            }
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -23,19 +67,32 @@
                                 <label for="floating-email">Correo</label>
                             </div>
 
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floating-puesto" name="id_puesto" required>
-                                <label for="floating-puesto">Puesto</label>
+                            <div class="row">
+                            <div class="col-md-2 mb-3 my-auto">
+                            <label>
+                                Puesto
+                            </label>
+                            </div>
+                            <div class="col-md-10 mb-3">
+                            <select class="form-select my-auto" aria-label="Default select example" name="puesto">
+                                <option value="2">Sub Administrador</option>
+                                <option value="3">Empleado</option>
+                            </select>
+                            </div>
                             </div>
 
-                            <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Registrar</button>
-
+                            <div class="d-flex justify-content-evenly">
+                                    <?php echo '<a href="index.php?id='.$_GET['id'].'" class="btn btn-danger btn-lg btn-block">Cancelar</a>';?>
+                                    <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Registrar</button>
+                            </div>
+                            
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </body>
+    
     <?php
     require_once '../../../includes/footer.php';
     ?>

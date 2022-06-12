@@ -174,6 +174,20 @@
         return $integrantes;
     }
 
+    function add_integrante($email, $puesto, $id) {
+        $val = false;
+        $conn = connection();
+        $sql = "INSERT INTO usuarioproyecto VALUES ('$email', '$puesto', '$id')";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
     function delete_integrante($email, $id) {
         $val = false;
         $conn = connection();
