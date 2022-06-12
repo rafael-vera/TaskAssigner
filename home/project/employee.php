@@ -32,6 +32,7 @@ if($num_total > 0) {
     $fecha_actual = $fecha_actual->format('Y-m-d');
     while($i < $num_total) {
         $fecha_tarea = new DateTime($tareas['fecha'][$i]);
+        $fecha_tarea = $fecha_tarea->format('Y-m-d');
         if($tareas['terminado'][$i] != 0) {
             array_push($completadas['nombre'], $tareas['nombre'][$i]);
             array_push($completadas['descripcion'], $tareas['descripcion'][$i]);
@@ -72,8 +73,8 @@ if($num_total > 0) {
                     <div class="card-body">
                         <p>'.$pendientes['descripcion'][$i].'</p>
                         <div class="d-flex justify-content-between">
-                            <p>'.$pendientes['fecha'][$i].'</p>
-                            <a href="#" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
+                            <p class="my-auto">'.$pendientes['fecha'][$i].'</p>
+                            <a href="task-done.php?id='.$_GET['id'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
                         </div>
                     </div>
                 </div>
@@ -94,10 +95,15 @@ if($num_total > 0) {
             $total = count($completadas['nombre']);
             while($i < $total) {
                 echo '
-                <div class="card bg-light m-1 pt-1 px-1">
-                    <h6>'.$completadas['nombre'][$i].'</h6>
-                    <p>'.$completadas['descripcion'][$i].'</p>
-                    <p>'.$completadas['fecha'][$i].'</p>
+                <div class="card bg-light m-1">
+                    <h6 class="card-header">'.$completadas['nombre'][$i].'</h6>
+                    <div class="card-body">
+                        <p>'.$completadas['descripcion'][$i].'</p>
+                        <div class="d-flex justify-content-between">
+                            <p class="my-auto">'.$completadas['fecha'][$i].'</p>
+                            <a href="task-undone.php?id='.$_GET['id'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"> No realizado</i></a>
+                        </div>
+                    </div>
                 </div>
                 ';
                 $i++;
@@ -116,12 +122,14 @@ if($num_total > 0) {
             $total = count($atrasadas['nombre']);
             while($i < $total) {
                 echo '
-                <div class="card m-1 pt-1 px-1">
-                    <h6>'.$atrasadas['nombre'][$i].'</h6>
-                    <p>'.$atrasadas['descripcion'][$i].'</p>
-                    <div class="d-flex justify-content-between">
-                        <p>'.$atrasadas['fecha'][$i].'</p>
-                        <a href="#" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
+                <div class="card bg-light m-1">
+                    <h6 class="card-header">'.$atrasadas['nombre'][$i].'</h6>
+                    <div class="card-body">
+                        <p>'.$atrasadas['descripcion'][$i].'</p>
+                        <div class="d-flex justify-content-between">
+                            <p class="my-auto">'.$atrasadas['fecha'][$i].'</p>
+                            <a href="task-done.php?id='.$_GET['id'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
+                        </div>
                     </div>
                 </div>
                 ';
