@@ -48,7 +48,9 @@ if(strcmp($puesto, "Empleado") == 0) {
             <div class="d-flex justify-content-between">
                 <h1>Integrantes</h1>
                 <div class="my-auto">
-                    <a href="#" class="btn btn-success">Agregar integrante</a>
+                    <?php
+                    echo '<a href="add.php?id='.$_GET['id'].'" class="btn btn-success">Agregar integrante</a>';
+                    ?>
                 </div>
             </div>
             <hr>
@@ -75,10 +77,14 @@ if(strcmp($puesto, "Empleado") == 0) {
                             <td>'.$integrantes['apellidos'][$i].'</td>
                             <td>'.$integrantes['puesto'][$i].'</td>
                             <td>
-                            <div class="d-flex justify-content-evenly">
-                            <a href="member.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>
-                            </div>
+                                <div class="d-flex justify-content-evenly">
+                                    <a href="member.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>';
+                    // Se valida si el usuario puede eliminarse
+                    if(strcmp($integrantes['puesto'][$i], "Administrador") != 0) {
+                        echo '      <a href="delete.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>';
+                    }
+                    echo '
+                                </div>
                             </td>
                         </tr>
                     ';
