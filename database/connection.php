@@ -98,6 +98,30 @@
         return $val;
     }
 
+    function get_tareas($email, $id) {
+        $tareas = array(
+            'nombre'=>array(),
+            'descripcion'=>array(),
+            'fecha'=>array(),
+            'terminado'=>array()
+        );
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT nom_tarea, desc_tarea, fec_lim_tarea, terminado FROM tarea
+             WHERE correo_usr='$email' AND id_proyecto=$id ORDER BY fec_lim_tarea ASC"
+        );
+        if($result->num_rows > 0) {
+            while($tarea = $result->fetch_row()) {
+                array_push($tareas['nombre'], $tarea[0]);
+                array_push($tareas['descripcion'], $tarea[1]);
+                array_push($tareas['fecha'], $tarea[2]);
+                array_push($tareas['terminado'], $tarea[3]);
+            }
+        }
+        close_connection($conn);
+        return $tareas;
+    }
+
     function get_integrantes($id_proyecto) {
         $integrantes = array(
             'correo'=>array(),
@@ -120,5 +144,19 @@
         }
         close_connection($conn);
         return $integrantes;
+    }
+
+    function delete_integrante($email, $id) {
+        $val = false;
+        $conn = connection();
+        $sql = "DELETE FROM usuarioproyecto WHERE correo_usr='$email' AND id_proyecto=$id";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
     }
 ?>
