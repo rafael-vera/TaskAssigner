@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
     function connection() {
         $SERVER   = '127.0.0.1';
         $USER     = 'root';
@@ -198,6 +201,40 @@
             }
         } catch(Exception $e) {
         }
+        close_connection($conn);
+        return $val;
+    }
+
+    function get_usuario($email){
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT * FROM `usuario` WHERE `correo_usr` ='$email'"
+        );
+        $res = array("correo_usr" => "", "nombre_usr" => "", "apellidos_usr"=>"");
+        
+        if($result->num_rows > 0) {
+            while($integrante = $result->fetch_row()) {
+                $res['correo_usr'] = $integrante[0];
+                $res['nombre_usr'] = $integrante[1];
+                $res['apellidos_usr'] = $integrante[2];
+            }
+        }
+        close_connection($conn);
+        return $res;
+    }
+
+    function actualizar_puesto($email,$idproyecto,$puesto){
+        $val = false;
+        $conn = connection();
+
+        $result = $conn->query(
+            "UPDATE `usuarioproyecto` SET `id_puesto`='$puesto' WHERE `correo_usr`= '$email' AND `id_proyecto` = '$idproyecto'"
+        );
+        
+        if($result){
+            $val = true;
+        }
+
         close_connection($conn);
         return $val;
     }
