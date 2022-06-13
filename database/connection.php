@@ -201,4 +201,55 @@
         close_connection($conn);
         return $val;
     }
+
+    function get_usuario($email){
+        $conn = connection();
+        $res = array(
+            "correo_usr"=>"",
+            "nombre_usr"=>"",
+            "apellidos_usr"=>""
+        );
+        $result = $conn->query(
+            "SELECT * FROM usuario WHERE correo_usr='$email'"
+        );
+        
+        if($result->num_rows > 0) {
+            while($integrante = $result->fetch_row()) {
+                $res['correo_usr'] = $integrante[0];
+                $res['nombre_usr'] = $integrante[1];
+                $res['apellidos_usr'] = $integrante[2];
+            }
+        }
+        close_connection($conn);
+        return $res;
+    }
+
+    function actualizar_puesto($email, $idproyecto, $puesto){
+        $val = false;
+        $conn = connection();
+        $sql = "UPDATE usuarioproyecto SET id_puesto='$puesto' WHERE correo_usr= '$email' AND id_proyecto = $idproyecto";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
+    function add_tarea($nombre_tarea, $desc_tarea, $fecha_lim_tarea, $correo_empleado, $id_proyecto){
+        $val = false;
+        $conn = connection();
+        $sql = "INSERT INTO tarea (nom_tarea, correo_usr, id_proyecto, desc_tarea, fec_lim_tarea, terminado)
+                VALUES ('$nombre_tarea', '$correo_empleado', $id_proyecto, '$desc_tarea', '$fecha_lim_tarea', 0)";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
 ?>
