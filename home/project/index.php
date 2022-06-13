@@ -33,21 +33,10 @@ require_once '../../database/connection.php';
             header("Location: ../");
         }
 
-        switch ($puesto) {
-            case "Administrador":
-                // Vista administrador
-                echo '<a href="members/?id='.$_GET['id'].'">Ver miembros</a>';
-                require_once 'administrator.php';
-                break;
-            case "Sub Administrador":
-                // Vista sub-administrador
-                echo '<a href="members/?id='.$_GET['id'].'">Ver miembros</a>';
-                require_once 'sub-administrator.php';
-                break;
-            case "Empleado":
-                // Vista empleado
-                require_once 'employee.php';
-                break;
+        if(strcmp($puesto, "Empleado") == 0) {
+            require_once 'employee.php';
+        } else {
+            require_once 'administrator.php';
         }
         ?>
     </body>
