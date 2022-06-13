@@ -41,6 +41,7 @@ if (isset($_POST['submit'])) {
         <meta charset="UTF-8">
         <title>Task Assigner</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
         <?php
@@ -196,9 +197,11 @@ if (isset($_POST['submit'])) {
             echo '
             <main class="container p-5 mb-5" id="tareas">
                 <div class="d-flex justify-content-between">
-                    <h2>Tareas</h2>
+                    <h2>Tareas del integrante</h2>
                     <div class="my-auto">
-                        <a href="add-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'" class="btn btn-success">Agregar tarea</a>
+                        <a href="add-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'" class="btn btn-success">
+                            <i class="fa fa-plus-circle" aria-hidden="true"> Agregar tarea</i>
+                        </a>
                     </div>
                 </div>
                 <hr>
@@ -219,7 +222,11 @@ if (isset($_POST['submit'])) {
                                     <p>'.$pendientes['descripcion'][$i].'</p>
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$pendientes['fecha'][$i].'</p>
-                                        <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
+                                        <div>
+                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +252,11 @@ if (isset($_POST['submit'])) {
                                     <p>'.$completadas['descripcion'][$i].'</p>
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$completadas['fecha'][$i].'</p>
-                                        <a href="task-undone.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"> No realizado</i></a>
+                                        <div>
+                                            <a href="task-undone.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-warning"><i class="fa fa-times text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +282,11 @@ if (isset($_POST['submit'])) {
                                     <p>'.$atrasadas['descripcion'][$i].'</p>
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$atrasadas['fecha'][$i].'</p>
-                                        <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
+                                        <div>
+                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
