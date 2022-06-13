@@ -98,6 +98,32 @@
         return $val;
     }
 
+    function get_all_tareas($id) {
+        $tareas = array(
+            'nombre'=>array(),
+            'correo'=>array(),
+            'descripcion'=>array(),
+            'fecha'=>array(),
+            'terminado'=>array()
+        );
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT nom_tarea, correo_usr, desc_tarea, fec_lim_tarea, terminado FROM tarea
+             WHERE id_proyecto=$id ORDER BY fec_lim_tarea ASC"
+        );
+        if($result->num_rows > 0) {
+            while($tarea = $result->fetch_row()) {
+                array_push($tareas['nombre'], $tarea[0]);
+                array_push($tareas['correo'], $tarea[1]);
+                array_push($tareas['descripcion'], $tarea[2]);
+                array_push($tareas['fecha'], $tarea[3]);
+                array_push($tareas['terminado'], $tarea[4]);
+            }
+        }
+        close_connection($conn);
+        return $tareas;
+    }
+
     function get_tareas($email, $id) {
         $tareas = array(
             'nombre'=>array(),
