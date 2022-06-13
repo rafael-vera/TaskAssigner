@@ -49,7 +49,10 @@ if(strcmp($puesto, "Empleado") == 0) {
                 <h1>Integrantes</h1>
                 <div class="my-auto">
                     <?php
-                    echo '<a href="add.php?id='.$_GET['id'].'" class="btn btn-success">Agregar integrante</a>';
+                    echo '
+                    <a href="add.php?id='.$_GET['id'].'" class="btn btn-success">
+                        <i class="fa fa-plus-circle" aria-hidden="true"> Agregar integrante</i>
+                    </a>';
                     ?>
                 </div>
             </div>
