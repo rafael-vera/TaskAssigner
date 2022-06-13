@@ -223,9 +223,9 @@ if (isset($_POST['submit'])) {
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$pendientes['fecha'][$i].'</p>
                                         <div>
-                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
-                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success px-1 py-0"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-primary px-1 py-0"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-danger px-1 py-0"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -253,9 +253,9 @@ if (isset($_POST['submit'])) {
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$completadas['fecha'][$i].'</p>
                                         <div>
-                                            <a href="task-undone.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-warning"><i class="fa fa-times text-white" aria-hidden="true"></i></a>
-                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                            <a href="task-undone.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-warning px-1 py-0"><i class="fa fa-times text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-primary px-1 py-0"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger px-1 py-0"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -283,9 +283,9 @@ if (isset($_POST['submit'])) {
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$atrasadas['fecha'][$i].'</p>
                                         <div>
-                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
-                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success px-1 py-0"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-primary px-1 py-0"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-danger px-1 py-0"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
                                         </div>
                                     </div>
                                 </div>
