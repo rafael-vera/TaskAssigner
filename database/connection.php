@@ -122,6 +122,25 @@
         return $tareas;
     }
 
+    function get_tarea($nombre, $email, $id) {
+        $tarea = array(
+            'descripcion'=>"",
+            'fecha'=>""
+        );
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT desc_tarea, fec_lim_tarea FROM tarea
+             WHERE nom_tarea='$nombre' AND correo_usr='$email' AND id_proyecto=$id"
+        );
+        if($result->num_rows > 0) {
+            $res = $result->fetch_row();
+            $tarea['descripcion'] = $res[0];
+            $tarea['fecha'] = $res[1];
+        }
+        close_connection($conn);
+        return $tarea;
+    }
+
     function task_done($email, $id, $task) {
         $val = false;
         $conn = connection();
@@ -243,6 +262,36 @@
         $conn = connection();
         $sql = "INSERT INTO tarea (nom_tarea, correo_usr, id_proyecto, desc_tarea, fec_lim_tarea, terminado)
                 VALUES ('$nombre_tarea', '$correo_empleado', $id_proyecto, '$desc_tarea', '$fecha_lim_tarea', 0)";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
+    function update_task($nombre_old, $nombre_new, $email, $id, $desc, $fecha) {
+        $val = false;
+        $conn = connection();
+        $sql = "UPDATE tarea
+                SET nom_tarea='$nombre_new', desc_tarea='$desc', fec_lim_tarea='$fecha'
+                WHERE nom_tarea='$nombre_old' AND correo_usr='$email' AND id_proyecto=$id";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
+    function delete_task($nombre, $email, $id) {
+        $val = false;
+        $conn = connection();
+        $sql = "DELETE FROM tarea WHERE nom_tarea='$nombre' AND correo_usr='$email' AND id_proyecto=$id";
         try {
             if($conn->query($sql)) {
                 $val = true;
