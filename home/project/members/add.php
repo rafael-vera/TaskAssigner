@@ -68,25 +68,22 @@ if (isset($_POST['submit'])) {
                                     <label for="floating-email">Correo</label>
                                 </div>
 
-                                <div class="row">
-                                <div class="col-md-2 mb-3 my-auto">
-                                <label>
-                                    Puesto
-                                </label>
-                                </div>
-                                <div class="col-md-10 mb-3">
-                                <select class="form-select my-auto" aria-label="Default select example" name="puesto">
-                                    <option value="2">Sub Administrador</option>
-                                    <option value="3">Empleado</option>
-                                </select>
-                                </div>
+                                <div class="d-flex justify-content-evenly my-3">
+                                    <div class="my-auto px-3">
+                                        <label justify-content-center>
+                                            Puesto:
+                                        </label>
+                                    </div>
+                                    <select class="form-select" aria-label="Default select example" name="puesto">
+                                        <option value="2">Sub Administrador</option>
+                                        <option value="3" selected>Empleado</option>
+                                    </select>
                                 </div>
 
                                 <div class="d-flex justify-content-evenly">
                                         <?php echo '<a href="index.php?id='.$_GET['id'].'" class="btn btn-danger btn-lg btn-block">Cancelar</a>';?>
                                         <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Registrar</button>
                                 </div>
-                                
                             </form>
                         </div>
                     </div>
