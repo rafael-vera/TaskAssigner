@@ -238,4 +238,15 @@ use function PHPSTORM_META\type;
         close_connection($conn);
         return $val;
     }
+
+    function add_tarea($nombre_tarea, $desc_tarea, $fecha_lim_tarea, $correo_empleado, $id_proyecto){
+        $conn = connection();
+
+        $result = $conn->query(
+            "INSERT INTO `tarea` (`nom_tarea`, `correo_usr`, `id_proyecto`, `desc_tarea`, `fec_lim_tarea`, `terminado`) VALUES ('$nombre_tarea', '$correo_empleado', '$id_proyecto', '$desc_tarea', '$fecha_lim_tarea', '0');"
+        );
+
+        close_connection($conn);
+        return $result;
+    }
 ?>

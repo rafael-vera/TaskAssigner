@@ -81,7 +81,8 @@ if(strcmp($puesto, "Empleado") == 0) {
                                     <a href="member.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>';
                     // Se valida si el usuario puede eliminarse
                     if(strcmp($integrantes['puesto'][$i], "Administrador") != 0) {
-                        echo '      <a href="delete.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>';
+                        echo '<a href="add-task.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-plus-square  text-primary" aria-hidden="true"></i></a>'; 
+                        echo '<a href="delete.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>';                        
                     }
                     echo '
                                 </div>
