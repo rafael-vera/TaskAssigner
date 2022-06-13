@@ -2,7 +2,9 @@
     <div class="d-flex justify-content-between">
         <h1>Proyectos</h1>
         <div class="my-auto">
-            <a href="new-project.php" class="btn btn-success">Nuevo proyecto</a>
+            <a href="new-project.php" class="btn btn-success">
+                <i class="fa fa-plus-circle" aria-hidden="true"> Nuevo proyecto</i>
+            </a>
         </div>
     </div>
     <hr>
