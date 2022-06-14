@@ -18,6 +18,11 @@ if(!isset($_GET['usr'])) {
     header("Location: index.php?id=".$_GET['id']);
 }
 
+
+date_default_timezone_set('America/Mexico_City');
+$date = date('Y-m-d', time());
+
+
 if (isset($_POST['submit'])) {
     $val = add_tarea(
         $_POST['nom_tarea'],
@@ -70,6 +75,7 @@ if (isset($_POST['submit'])) {
 
         $usuario = get_usuario($_GET['usr']);
 
+        
         ?>
         
         <section class="vh-75">
@@ -91,7 +97,7 @@ if (isset($_POST['submit'])) {
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="floating-date" name="fec_lim_tarea" required> 
+                                    <input type="date" class="form-control" id="floating-date" name="fec_lim_tarea" min="<?php echo $date; ?>" required> 
                                     <label for="floating-date">Fecha límite de la Tarea</label>
                                 </div>
 

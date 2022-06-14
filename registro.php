@@ -50,13 +50,13 @@ if (isset($_POST['submit'])) {
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floating-name" name="nombre_usr" required>
+                                        <input type="text" class="form-control" id="floating-name" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" name="nombre_usr" required>
                                         <label for="floating-name">Nombre</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floating-lastname" name="apellidos_usr" required>
+                                        <input type="text" class="form-control" id="floating-lastname" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+" name="apellidos_usr" required>
                                         <label for="floating-lastname">Apellidos</label>
                                     </div>
                                 </div>
