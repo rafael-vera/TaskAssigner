@@ -74,7 +74,7 @@ if($num_total > 0) {
                         <p>'.$pendientes['descripcion'][$i].'</p>
                         <div class="d-flex justify-content-between">
                             <p class="my-auto">'.$pendientes['fecha'][$i].'</p>
-                            <a href="task-done.php?id='.$_GET['id'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
+                            <a href="task-done.php?id='.$_GET['id'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success" data-toggle="tooltip" title="Tarea realizada"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@ if($num_total > 0) {
                         <p>'.$completadas['descripcion'][$i].'</p>
                         <div class="d-flex justify-content-between">
                             <p class="my-auto">'.$completadas['fecha'][$i].'</p>
-                            <a href="task-undone.php?id='.$_GET['id'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"> No realizado</i></a>
+                            <a href="task-undone.php?id='.$_GET['id'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger" data-toggle="tooltip" title="Tarea no realizada"><i class="fa fa-times" aria-hidden="true"> No realizado</i></a>
                         </div>
                     </div>
                 </div>
@@ -128,7 +128,7 @@ if($num_total > 0) {
                         <p>'.$atrasadas['descripcion'][$i].'</p>
                         <div class="d-flex justify-content-between">
                             <p class="my-auto">'.$atrasadas['fecha'][$i].'</p>
-                            <a href="task-done.php?id='.$_GET['id'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
+                            <a href="task-done.php?id='.$_GET['id'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success" data-toggle="tooltip" title="Tarea realizada"><i class="fa fa-check text-white" aria-hidden="true"> Realizado</i></a>
                         </div>
                     </div>
                 </div>
