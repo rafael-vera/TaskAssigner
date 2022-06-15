@@ -28,17 +28,23 @@ if(strcmp($puesto, "Empleado") == 0) {
 }
 
 if (isset($_POST['submit'])) {
-    if($_POST['puesto']!=1){
-        $val = add_integrante(
-            $_POST['correo_usr'],
-            $_POST['puesto'],
-            $_GET['id']
-        );
-        if($val){
-            header("Location: index.php?id=".$_GET['id']);
-        } else{
-            echo "<script>alert('Error al realizar el registro')</script>";
+    if(filter_var($_POST['correo_usr'], FILTER_VALIDATE_EMAIL)){
+        if($_POST['puesto']!=1){
+            $val = add_integrante(
+                $_POST['correo_usr'],
+                $_POST['puesto'],
+                $_GET['id']
+            );
+            if($val){
+                header("Location: index.php?id=".$_GET['id']);
+            } else{
+                echo "<script>alert('Error al realizar el registro')</script>";
+            }
+        } else {
+            echo "<script>alert('Puesto no valido')</script>";
         }
+    } else {
+        echo "<script>alert('Correo no valido')</script>";
     }
 }
 ?>
@@ -64,7 +70,7 @@ if (isset($_POST['submit'])) {
                                 <h3 class="mb-5">Nuevo usuario del proyecto</h3>
 
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floating-email" name="correo_usr" required>
+                                    <input type="email" class="form-control" id="floating-email" name="correo_usr" maxlength="50" required>
                                     <label for="floating-email">Correo</label>
                                 </div>
 
