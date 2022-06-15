@@ -81,11 +81,11 @@ if(strcmp($puesto, "Empleado") == 0) {
                             <td>'.$integrantes['puesto'][$i].'</td>
                             <td>
                                 <div class="d-flex justify-content-evenly">
-                                    <a href="member.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>';
+                                    <a href="member.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'" data-toggle="tooltip" title="Ver Usuario"><i class="fa fa-eye text-success" aria-hidden="true"></i></a>';
                     // Se valida si el usuario puede eliminarse
                     if(strcmp($integrantes['puesto'][$i], "Administrador") != 0) {
-                        echo '<a href="add-task.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-plus-square text-primary" aria-hidden="true"></i></a>
-                              <a href="delete.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>';
+                        echo '<a href="add-task.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'" data-toggle="tooltip" title="Añadir Tarea"><i class="fa fa-plus-square text-primary" aria-hidden="true"></i></a>
+                              <a href="delete.php?id='.$_GET['id'].'&usr='.$integrantes['correo'][$i].'" data-toggle="tooltip" title="Eliminar Integrante"><i class="fa fa-trash text-danger" aria-hidden="true"></i></a>';
                     }
                     echo '
                                 </div>
