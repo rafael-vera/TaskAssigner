@@ -11,18 +11,22 @@ if (isset($_POST['submit'])) {
     if($_POST['contrasena_usr'] != $_POST['confirm_contrasena_usr']) {
         echo "<script>alert('La contraseña no es igual')</script>";
     } else {
-        $val = sign_up(
-            $_POST['nombre_usr'],
-            $_POST['apellidos_usr'],
-            $_POST['correo_usr'],
-            $_POST['contrasena_usr']
-        );
-    
-        if ($val) {
-            $_SESSION['correo_usr'] = $_POST['correo_usr'];
-            header("Location: home/");
+        if(filter_var($_POST['correo_usr'], FILTER_VALIDATE_EMAIL)){
+            $val = sign_up(
+                $_POST['nombre_usr'],
+                $_POST['apellidos_usr'],
+                $_POST['correo_usr'],
+                $_POST['contrasena_usr']
+            );
+        
+            if ($val) {
+                $_SESSION['correo_usr'] = $_POST['correo_usr'];
+                header("Location: home/");
+            } else {
+                echo "<script>alert('Error al realizar el registro')</script>";
+            }
         } else {
-            echo "<script>alert('Error al realizar el registro')</script>";
+            echo "<script>alert('Correo no valido')</script>";
         }
     }
 }
@@ -50,30 +54,30 @@ if (isset($_POST['submit'])) {
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floating-name" name="nombre_usr" required>
+                                        <input type="text" class="form-control" id="floating-name" name="nombre_usr" maxlength="50" pattern="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,50}$" required>
                                         <label for="floating-name">Nombre</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="floating-lastname" name="apellidos_usr" required>
+                                        <input type="text" class="form-control" id="floating-lastname" name="apellidos_usr" maxlength="50" pattern="^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]{2,50}$" required>
                                         <label for="floating-lastname">Apellidos</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floating-email" name="correo_usr" required>
+                                <input type="email" class="form-control" id="floating-email" name="correo_usr" maxlength="50" required>
                                 <label for="floating-email">Correo</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="floating-password" name="contrasena_usr" required>
+                                <input type="password" class="form-control" id="floating-password" name="contrasena_usr" maxlength="20" required>
                                 <label for="floating-password">Contraseña</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="floating-password" name="confirm_contrasena_usr" required>
+                                <input type="password" class="form-control" id="floating-password" name="confirm_contrasena_usr" maxlength="20" required>
                                 <label for="floating-password">Confirma contraseña</label>
                             </div>
 
