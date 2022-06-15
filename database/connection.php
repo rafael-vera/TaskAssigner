@@ -1,6 +1,6 @@
 <?php
     function connection() {
-        $SERVER   = '127.0.0.1';
+        $SERVER   = 'localhost';
         $USER     = 'root';
         $PASSWD   = '';
         $DATABASE = 'taskassignerdb';
@@ -21,7 +21,7 @@
         $val = false;
         $conn = connection();
         $result = $conn->query(
-            "SELECT * FROM usuario WHERE correo_usr='$email' AND contrasena_usr='$passwd'"
+            "SELECT * FROM Usuario WHERE correo_usr='$email' AND contrasena_usr='$passwd'"
         );
         if($result->num_rows > 0) {
             $val = true;
@@ -33,7 +33,7 @@
     function sign_up($name, $lastname, $email, $passwd) {
         $val = false;
         $conn = connection();
-        $sql = "INSERT INTO usuario (correo_usr, nombre_usr, apellidos_usr, contrasena_usr) VALUES ('$email', '$name', '$lastname', '$passwd')";
+        $sql = "INSERT INTO Usuario (correo_usr, nombre_usr, apellidos_usr, contrasena_usr) VALUES ('$email', '$name', '$lastname', '$passwd')";
         try {
             if($conn->query($sql)) {
                 $val = true;
@@ -47,11 +47,11 @@
     function create_project($email, $nom_proyecto, $desc_proyecto=''){
         $val = false;
         $conn = connection();
-        $sql = "INSERT INTO proyecto VALUES (NULL, '$nom_proyecto', '$desc_proyecto')";
+        $sql = "INSERT INTO Proyecto VALUES (NULL, '$nom_proyecto', '$desc_proyecto')";
         try {
             if($conn->query($sql)) {
                 $new_id = $conn->insert_id;
-                $sql = "INSERT INTO usuarioproyecto VALUES ('$email', 1, $new_id)";
+                $sql = "INSERT INTO UsuarioProyecto VALUES ('$email', 1, $new_id)";
                 if($conn->query($sql)) {
                     $val = true;
                 }
@@ -70,8 +70,8 @@
         );
         $conn = connection();
         $result = $conn->query(
-            "SELECT proyecto.id_proyecto, proyecto.nom_proyecto, proyecto.desc_proyecto FROM proyecto, usuarioproyecto
-             WHERE proyecto.id_proyecto = usuarioproyecto.id_proyecto AND usuarioproyecto.correo_usr = '$email'"
+            "SELECT Proyecto.id_proyecto, Proyecto.nom_proyecto, Proyecto.desc_proyecto FROM Proyecto, UsuarioProyecto
+             WHERE Proyecto.id_proyecto = UsuarioProyecto.id_proyecto AND UsuarioProyecto.correo_usr = '$email'"
         );
         if($result->num_rows > 0) {
             while($project = $result->fetch_row()) {
@@ -88,8 +88,8 @@
         $val = null;
         $conn = connection();
         $result = $conn->query(
-            "SELECT nom_puesto FROM puesto, usuarioproyecto
-             WHERE usuarioproyecto.correo_usr='$email' AND usuarioproyecto.id_proyecto=$id AND puesto.id_puesto=usuarioproyecto.id_puesto"
+            "SELECT nom_puesto FROM Puesto, UsuarioProyecto
+             WHERE UsuarioProyecto.correo_usr='$email' AND UsuarioProyecto.id_proyecto=$id AND Puesto.id_puesto=UsuarioProyecto.id_puesto"
         );
         if($result->num_rows > 0) {
             $val = $result->fetch_row()[0];
@@ -108,7 +108,7 @@
         );
         $conn = connection();
         $result = $conn->query(
-            "SELECT nom_tarea, correo_usr, desc_tarea, fec_lim_tarea, terminado FROM tarea
+            "SELECT nom_tarea, correo_usr, desc_tarea, fec_lim_tarea, terminado FROM Tarea
              WHERE id_proyecto=$id ORDER BY fec_lim_tarea ASC"
         );
         if($result->num_rows > 0) {
@@ -133,7 +133,7 @@
         );
         $conn = connection();
         $result = $conn->query(
-            "SELECT nom_tarea, desc_tarea, fec_lim_tarea, terminado FROM tarea
+            "SELECT nom_tarea, desc_tarea, fec_lim_tarea, terminado FROM Tarea
              WHERE correo_usr='$email' AND id_proyecto=$id ORDER BY fec_lim_tarea ASC"
         );
         if($result->num_rows > 0) {
@@ -155,7 +155,7 @@
         );
         $conn = connection();
         $result = $conn->query(
-            "SELECT desc_tarea, fec_lim_tarea FROM tarea
+            "SELECT desc_tarea, fec_lim_tarea FROM Tarea
              WHERE nom_tarea='$nombre' AND correo_usr='$email' AND id_proyecto=$id"
         );
         if($result->num_rows > 0) {
@@ -170,7 +170,7 @@
     function task_done($email, $id, $task) {
         $val = false;
         $conn = connection();
-        $sql = "UPDATE tarea SET terminado=1 WHERE nom_tarea='$task' AND correo_usr='$email' AND id_proyecto=$id";
+        $sql = "UPDATE Tarea SET terminado=1 WHERE nom_tarea='$task' AND correo_usr='$email' AND id_proyecto=$id";
         try {
             if($conn->query($sql)) {
                 $val = true;
@@ -184,7 +184,7 @@
     function task_undone($email, $id, $task) {
         $val = false;
         $conn = connection();
-        $sql = "UPDATE tarea SET terminado=0 WHERE nom_tarea='$task' AND correo_usr='$email' AND id_proyecto=$id";
+        $sql = "UPDATE Tarea SET terminado=0 WHERE nom_tarea='$task' AND correo_usr='$email' AND id_proyecto=$id";
         try {
             if($conn->query($sql)) {
                 $val = true;
@@ -204,8 +204,8 @@
         );
         $conn = connection();
         $result = $conn->query(
-            "SELECT usuario.correo_usr, usuario.nombre_usr, usuario.apellidos_usr, puesto.nom_puesto FROM usuarioproyecto, usuario, puesto
-             WHERE usuarioproyecto.id_proyecto=$id_proyecto AND usuarioproyecto.id_puesto=puesto.id_puesto AND usuarioproyecto.correo_usr=usuario.correo_usr"
+            "SELECT Usuario.correo_usr, Usuario.nombre_usr, Usuario.apellidos_usr, Puesto.nom_puesto FROM UsuarioProyecto, Usuario, Puesto
+             WHERE UsuarioProyecto.id_proyecto=$id_proyecto AND UsuarioProyecto.id_puesto=Puesto.id_puesto AND UsuarioProyecto.correo_usr=Usuario.correo_usr"
         );
         if($result->num_rows > 0) {
             while($integrante = $result->fetch_row()) {
@@ -222,7 +222,7 @@
     function add_integrante($email, $puesto, $id) {
         $val = false;
         $conn = connection();
-        $sql = "INSERT INTO usuarioproyecto VALUES ('$email', '$puesto', '$id')";
+        $sql = "INSERT INTO UsuarioProyecto VALUES ('$email', '$puesto', '$id')";
         try {
             if($conn->query($sql)) {
                 $val = true;
@@ -236,7 +236,7 @@
     function delete_integrante($email, $id) {
         $val = false;
         $conn = connection();
-        $sql = "DELETE FROM usuarioproyecto WHERE correo_usr='$email' AND id_proyecto=$id";
+        $sql = "DELETE FROM UsuarioProyecto WHERE correo_usr='$email' AND id_proyecto=$id";
         try {
             if($conn->query($sql)) {
                 $val = true;
@@ -255,7 +255,7 @@
             "apellidos_usr"=>""
         );
         $result = $conn->query(
-            "SELECT * FROM usuario WHERE correo_usr='$email'"
+            "SELECT * FROM Usuario WHERE correo_usr='$email'"
         );
         
         if($result->num_rows > 0) {
@@ -269,10 +269,38 @@
         return $res;
     }
 
+    function update_info_usuario($email, $nombre, $apellidos) {
+        $val = false;
+        $conn = connection();
+        $sql = "UPDATE Usuario SET nombre_usr='$nombre', apellidos_usr='$apellidos' WHERE correo_usr='$email'";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
+    function update_pswd_usuario($email, $passwd) {
+        $val = false;
+        $conn = connection();
+        $sql = "UPDATE Usuario SET contrasena_usr='$passwd' WHERE correo_usr='$email'";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
     function actualizar_puesto($email, $idproyecto, $puesto){
         $val = false;
         $conn = connection();
-        $sql = "UPDATE usuarioproyecto SET id_puesto='$puesto' WHERE correo_usr= '$email' AND id_proyecto = $idproyecto";
+        $sql = "UPDATE UsuarioProyecto SET id_puesto='$puesto' WHERE correo_usr= '$email' AND id_proyecto = $idproyecto";
         try {
             if($conn->query($sql)) {
                 $val = true;
@@ -286,7 +314,7 @@
     function add_tarea($nombre_tarea, $desc_tarea, $fecha_lim_tarea, $correo_empleado, $id_proyecto){
         $val = false;
         $conn = connection();
-        $sql = "INSERT INTO tarea (nom_tarea, correo_usr, id_proyecto, desc_tarea, fec_lim_tarea, terminado)
+        $sql = "INSERT INTO Tarea (nom_tarea, correo_usr, id_proyecto, desc_tarea, fec_lim_tarea, terminado)
                 VALUES ('$nombre_tarea', '$correo_empleado', $id_proyecto, '$desc_tarea', '$fecha_lim_tarea', 0)";
         try {
             if($conn->query($sql)) {
@@ -301,7 +329,7 @@
     function update_task($nombre_old, $nombre_new, $email, $id, $desc, $fecha) {
         $val = false;
         $conn = connection();
-        $sql = "UPDATE tarea
+        $sql = "UPDATE Tarea
                 SET nom_tarea='$nombre_new', desc_tarea='$desc', fec_lim_tarea='$fecha'
                 WHERE nom_tarea='$nombre_old' AND correo_usr='$email' AND id_proyecto=$id";
         try {
@@ -317,7 +345,7 @@
     function delete_task($nombre, $email, $id) {
         $val = false;
         $conn = connection();
-        $sql = "DELETE FROM tarea WHERE nom_tarea='$nombre' AND correo_usr='$email' AND id_proyecto=$id";
+        $sql = "DELETE FROM Tarea WHERE nom_tarea='$nombre' AND correo_usr='$email' AND id_proyecto=$id";
         try {
             if($conn->query($sql)) {
                 $val = true;
