@@ -22,22 +22,32 @@ if(!isset($_GET['task'])) {
     header("Location: member.php?id=".$_GET['id']."&usr=".$_GET['usr']);
 }
 
+date_default_timezone_set('America/Mexico_City');
+$date = new DateTime();
+$date = $date->format('Y-m-d');
+
 require_once '../../../database/connection.php';
 
 if (isset($_POST['submit'])) {
-    $val = update_task(
-        $_GET['task'],
-        $_POST['nom_tarea'],
-        $_GET['usr'],
-        $_GET['id'],
-        $_POST['desc_tarea'],
-        $_POST['fec_lim_tarea']
-    );
+    $fecha_in = new DateTime($_POST['fec_lim_tarea']);
+    $fecha_in = $fecha_in->format('Y-m-d');
+    if($fecha_in < $date) {
+        echo "<script>alert('Fecha no valida')</script>";
+    } else {
+        $val = update_task(
+            $_GET['task'],
+            $_POST['nom_tarea'],
+            $_GET['usr'],
+            $_GET['id'],
+            $_POST['desc_tarea'],
+            $_POST['fec_lim_tarea']
+        );
 
-    if($val){
-        header("Location: member.php?id=".$_GET['id']."&usr=".$_GET['usr']."#tareas");
-    } else{
-        echo "<script>alert('Error al modificar la tarea')</script>";
+        if($val){
+            header("Location: member.php?id=".$_GET['id']."&usr=".$_GET['usr']."#tareas");
+        } else{
+            echo "<script>alert('Error al modificar la tarea')</script>";
+        }
     }
 }
 ?>
@@ -104,32 +114,32 @@ if (isset($_POST['submit'])) {
                                 <h3 class="mb-5">Modificar tarea</h3>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floating-tarea" name="nom_tarea" required value="<?php echo $_GET['task']; ?>">
+                                    <input type="text" class="form-control" id="floating-tarea" name="nom_tarea" maxlength="50" required value="<?php echo $_GET['task']; ?>">
                                     <label for="floating-tarea">Nombre de la Tarea</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <textarea type="text" class="form-control " id="floating-desc" name="desc_tarea" required rows="30" style="height: 160px"><?php echo $tarea['descripcion']; ?></textarea>
+                                    <textarea type="text" class="form-control " id="floating-desc" name="desc_tarea" maxlength="255" required rows="30" style="height: 160px"><?php echo $tarea['descripcion']; ?></textarea>
                                     <label for="floating-desc">Descripción de la Tarea</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="floating-date" name="fec_lim_tarea" required value="<?php echo $tarea['fecha']; ?>"> 
+                                    <input type="date" class="form-control" id="floating-date" name="fec_lim_tarea" min="<?php echo $date; ?>" required value="<?php echo $tarea['fecha']; ?>"> 
                                     <label for="floating-date">Fecha límite de la Tarea</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floating-nombre" name="nombre_usr" disabled required value="<?php echo $usuario["nombre_usr"]." ".$usuario["apellidos_usr"];?>">
+                                    <input type="text" class="form-control" id="floating-nombre" name="nombre_usr" maxlength="101" disabled required value="<?php echo $usuario["nombre_usr"]." ".$usuario["apellidos_usr"];?>">
                                     <label for="floating-nombre">Nombre del integrante</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floating-email" name="correo" disabled required value="<?php echo $usuario["correo_usr"];?>">
+                                    <input type="email" class="form-control" id="floating-email" name="correo" maxlength="50" disabled required value="<?php echo $usuario["correo_usr"];?>">
                                     <label for="floating-email">Correo del integrante</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floating-puesto" name="puesto" disabled required value="<?php echo $puestoEmpleado;?>">
+                                    <input type="text" class="form-control" id="floating-puesto" name="puesto" maxlength="25" disabled required value="<?php echo $puestoEmpleado;?>">
                                     <label for="floating-puesto">Puesto del integrante</label>
                                 </div>
                                 
