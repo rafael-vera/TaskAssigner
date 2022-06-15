@@ -8,13 +8,17 @@ if (isset($_SESSION['correo_usr'])) {
 require_once 'database/connection.php';
 
 if (isset($_POST['submit'])) {
-    $val = login($_POST['correo_usr'], $_POST['contrasena_usr']);
-	if ($val) {
-        $_SESSION['correo_usr'] = $_POST['correo_usr'];
-		header("Location: home/");
-	} else {
-		echo "<script>alert('Correo o contraseña incorrectos')</script>";
-	}
+    if(filter_var($_POST['correo_usr'], FILTER_VALIDATE_EMAIL)){
+        $val = login($_POST['correo_usr'], $_POST['contrasena_usr']);
+        if ($val) {
+            $_SESSION['correo_usr'] = $_POST['correo_usr'];
+            header("Location: home/");
+        } else {
+            echo "<script>alert('Correo o contraseña incorrectos')</script>";
+        }
+    } else {
+        echo "<script>alert('Correo no valido')</script>";
+    }
 }
 ?>
 
@@ -38,12 +42,12 @@ if (isset($_POST['submit'])) {
                             <h3 class="mb-5">Iniciar sesión</h3>
 
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floating-email" name="correo_usr" required>
+                                <input type="email" class="form-control" id="floating-email" name="correo_usr" maxlength="50" required>
                                 <label for="floating-email">Correo</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="floating-password" name="contrasena_usr" required>
+                                <input type="password" class="form-control" id="floating-password" name="contrasena_usr" maxlength="20" required>
                                 <label for="floating-password">Contraseña</label>
                             </div>
 
