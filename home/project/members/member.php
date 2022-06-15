@@ -22,15 +22,19 @@ if(!isset($_GET['usr'])) {
 require_once '../../../database/connection.php';
 
 if (isset($_POST['submit'])) {
-    $val = actualizar_puesto(
-        $_GET['usr'],
-        $_GET['id'],
-        $_POST['puesto']
-    );
-    if($val){
-        header("Location: index.php?id=".$_GET['id']);
-    } else{
-        echo "<script>alert('Error al modificar el puesto')</script>";
+    if($_POST['puesto']!=1){
+        $val = actualizar_puesto(
+            $_GET['usr'],
+            $_GET['id'],
+            $_POST['puesto']
+        );
+        if($val){
+            header("Location: index.php?id=".$_GET['id']);
+        } else{
+            echo "<script>alert('Error al modificar el puesto')</script>";
+        }
+    } else {
+        echo "<script>alert('Puesto no valido')</script>";
     }
 }
 ?>
@@ -84,12 +88,12 @@ if (isset($_POST['submit'])) {
                                 <h3 class="mb-5">Datos del integrante</h3>
 
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floating-nombre" name="nombre_usr" disabled required value="<?php echo $usuario["nombre_usr"]." ".$usuario["apellidos_usr"];?>">
+                                    <input type="text" class="form-control" id="floating-nombre" name="nombre_usr" maxlength="101" disabled required value="<?php echo $usuario["nombre_usr"]." ".$usuario["apellidos_usr"];?>">
                                     <label for="floating-nombre">Nombre</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floating-email" name="correo" disabled required value="<?php echo $usuario["correo_usr"];?>">
+                                    <input type="email" class="form-control" id="floating-email" name="correo" maxlength="50" disabled required value="<?php echo $usuario["correo_usr"];?>">
                                     <label for="floating-email">Correo</label>
                                 </div>
 
@@ -97,7 +101,7 @@ if (isset($_POST['submit'])) {
                             if(strcmp($puestoEmpleado, "Administrador") == 0) {
                                 echo '
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="floating-puesto" name="puesto" disabled required value="'.$puestoEmpleado.'">
+                                        <input type="text" class="form-control" id="floating-puesto" name="puesto" maxlength="25" disabled required value="'.$puestoEmpleado.'">
                                         <label for="floating-puesto">Puesto</label>
                                     </div>
                                     
@@ -223,9 +227,9 @@ if (isset($_POST['submit'])) {
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$pendientes['fecha'][$i].'</p>
                                         <div>
-                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success px-1 py-0"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
-                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-primary px-1 py-0"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-danger px-1 py-0"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-success px-1 py-0" data-toggle="tooltip" title="Tarea realizada"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-primary px-1 py-0" data-toggle="tooltip" title="Modificar tarea"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$pendientes['nombre'][$i].'" class="btn btn-danger px-1 py-0" data-toggle="tooltip" title="Eliminar tarea"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -253,9 +257,9 @@ if (isset($_POST['submit'])) {
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$completadas['fecha'][$i].'</p>
                                         <div>
-                                            <a href="task-undone.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-warning px-1 py-0"><i class="fa fa-times text-white" aria-hidden="true"></i></a>
-                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-primary px-1 py-0"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger px-1 py-0"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                            <a href="task-undone.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-warning px-1 py-0" data-toggle="tooltip" title="Tarea no realizada"><i class="fa fa-times text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-primary px-1 py-0" data-toggle="tooltip" title="Modificar tarea"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$completadas['nombre'][$i].'" class="btn btn-danger px-1 py-0" data-toggle="tooltip" title="Eliminar tarea"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -283,9 +287,9 @@ if (isset($_POST['submit'])) {
                                     <div class="d-flex justify-content-between">
                                         <p class="my-auto">'.$atrasadas['fecha'][$i].'</p>
                                         <div>
-                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success px-1 py-0"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
-                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-primary px-1 py-0"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-danger px-1 py-0"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                            <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success px-1 py-0" data-toggle="tooltip" title="Tarea realizada"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
+                                            <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-primary px-1 py-0" data-toggle="tooltip" title="Modificar tarea"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-danger px-1 py-0" data-toggle="tooltip" title="Eliminar tarea"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
                                         </div>
                                     </div>
                                 </div>
