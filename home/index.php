@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['correo_usr'])) {
-    header("Location: /taskassigner/");
+    header("Location: ../");
 }
 
 require_once '../database/connection.php';
