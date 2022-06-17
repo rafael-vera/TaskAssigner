@@ -14,6 +14,10 @@
         echo '<div class="row py-4">';
         $cont = 3;
         while($cont > 0 && $num_projects > 0) {
+            $puesto = get_puesto(
+                $_SESSION['correo_usr'],
+                $projects['id'][$i]
+            );
             echo '
             <div class="col mx-5 d-flex justify-content-center">
                 <div class="card w-100 shadow">
@@ -21,7 +25,14 @@
                         <h5 class="card-title">'.$projects['nombre'][$i].'</h5>
                         <p class="card-text">'.$projects['descripcion'][$i].'</p>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <a href="project/?id='.$projects['id'][$i].'" class="btn btn-info">Ir al proyecto</a>
+                            <a href="project/?id='.$projects['id'][$i].'" class="btn btn-info" data-toggle="tooltip" title="Ver proyecto"><i class="fa fa-eye" aria-hidden="true"> Ver</i></a>';
+            if(strcmp($puesto, "Administrador") == 0) {
+                echo '
+                            <a href="edit-project.php?id='.$projects['id'][$i].'" class="btn btn-warning" data-toggle="tooltip" title="Editar proyecto"><i class="fa fa-pencil" aria-hidden="true"> Editar</i></a>
+                            <a href="delete-project.php?id='.$projects['id'][$i].'" class="btn btn-danger" data-toggle="tooltip" title="Eliminar proyecto"><i class="fa fa-trash" aria-hidden="true"> Eliminar</i></a>
+                ';
+            }
+            echo '
                         </div>
                     </div>
                 </div>
