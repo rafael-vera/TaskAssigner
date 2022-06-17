@@ -84,6 +84,52 @@
         return $projects;
     }
 
+    function get_project($id) {
+        $project = array(
+            'nombre'=>"",
+            'descripcion'=>""
+        );
+        $conn = connection();
+        $result = $conn->query(
+            "SELECT nom_proyecto, desc_proyecto FROM Proyecto WHERE id_proyecto=$id"
+        );
+        if($result->num_rows > 0) {
+            $res = $result->fetch_row();
+            $project['nombre'] = $res[0];
+            $project['descripcion'] = $res[1];
+        }
+        close_connection($conn);
+        return $project;
+    }
+
+    function update_project($id, $nombre, $desc) {
+        $val = false;
+        $conn = connection();
+        $sql = "UPDATE Proyecto SET nom_proyecto='$nombre', desc_proyecto='$desc' WHERE id_proyecto=$id";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
+    function delete_project($id) {
+        $val = false;
+        $conn = connection();
+        $sql = "DELETE FROM Proyecto WHERE id_proyecto=$id";
+        try {
+            if($conn->query($sql)) {
+                $val = true;
+            }
+        } catch(Exception $e) {
+        }
+        close_connection($conn);
+        return $val;
+    }
+
     function get_puesto($email, $id) {
         $val = null;
         $conn = connection();
