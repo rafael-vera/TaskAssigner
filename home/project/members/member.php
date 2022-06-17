@@ -289,7 +289,7 @@ if (isset($_POST['submit'])) {
                                         <div>
                                             <a href="task-done.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-success px-1 py-0" data-toggle="tooltip" title="Tarea realizada"><i class="fa fa-check text-white" aria-hidden="true"></i></a>
                                             <a href="modify-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-primary px-1 py-0" data-toggle="tooltip" title="Modificar tarea"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-danger px-1 py-0" data-toggle="tooltip" title="Eliminar tarea"><i class="fa fa-trash" aria-hidden="true"></i></i></a>
+                                            <a href="delete-task.php?id='.$_GET['id'].'&usr='.$_GET['usr'].'&task='.$atrasadas['nombre'][$i].'" class="btn btn-danger px-1 py-0" data-toggle="tooltip" title="Eliminar tarea"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                 </div>
